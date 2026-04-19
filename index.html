@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GlobeSwift Logistics Tracking</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0a1f44;
+color:white;
+text-align:center;
+padding:50px;
+}
+
+.container{
+background:white;
+color:black;
+padding:30px;
+border-radius:10px;
+width:400px;
+margin:auto;
+}
+
+input{
+padding:10px;
+width:80%;
+margin:10px;
+}
+
+button{
+padding:10px 20px;
+background:#ffcc00;
+border:none;
+cursor:pointer;
+}
+
+#result{
+margin-top:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>GlobeSwift Logistics</h1>
+<p>Track your shipment worldwide</p>
+
+<div class="container">
+
+<input id="trackingCode" placeholder="Enter Tracking Code">
+
+<button onclick="trackShipment()">Track Shipment</button>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+function trackShipment(){
+
+var code=document.getElementById("trackingCode").value;
+
+var api="PASTE_YOUR_API_LINK_HERE?code="+code;
+
+fetch(api)
+.then(response=>response.json())
+.then(data=>{
+
+if(data.error){
+
+document.getElementById("result").innerHTML="Tracking code not found";
+
+}else{
+
+document.getElementById("result").innerHTML=
+
+"<h3>Status: "+data.status+"</h3>"+
+"<p>Origin: "+data.origin+"</p>"+
+"<p>Destination: "+data.destination+"</p>"+
+"<p>Estimated Delivery: "+data.delivery+"</p>";
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>
